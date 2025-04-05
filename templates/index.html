@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facial Emotion Recognition</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f8f9fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 30px;
+            text-align: center;
+        }
+
+        /* Logo */
+        .logo {
+            max-width: 80px;
+            margin: 0 auto 20px;
+        }
+
+        /* Title and Description */
+        h1 {
+            font-size: 24px;
+            color: #0056b3;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #0056b3;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #0056b3;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #004494;
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            background-color: #003272;
+            transform: translateY(0);
+        }
+
+        /* Image Preview Section */
+        .preview {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .preview img {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            object-fit: cover; /* Ensures the image fills the dimensions without distortion */
+        }
+
+        /* Result Section */
+        .result {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .footer a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo -->
+        <img src="{{ url_for('static', filename='omu.png') }}" alt="Ondokuz Mayis University Logo" class="logo">
+
+        <!-- Title and Description -->
+        <h1>Facial Emotion Recognition</h1>
+        <p class="description">Upload an image to find out which facial emotion it features using AI-powered technology.</p>
+
+        <!-- Form -->
+        <form class="form-group" action="/" method="post" enctype="multipart/form-data">
+            <input class="form-control" type="file" name="imagefile" id="imagefile" accept="image/*" required>
+            <button class="btn" type="submit">Predict Image</button>
+        </form>
+
+        <!-- Preview -->
+        <div class="preview">
+            <h2>Image Preview</h2>
+            <img id="image-preview" src="#" alt="Image Preview">
+        </div>
+
+        <!-- Render Uploaded Image -->
+        {% if image_url %}
+            <script>
+                document.getElementById('image-preview').src = "{{ image_url }}";
+                document.querySelector('.preview').style.display = 'block';
+            </script>
+        {% endif %}
+
+        <!-- Display Prediction Result -->
+        {% if prediction %}
+            <p class="result">{{ prediction }}</p>
+        {% endif %}
+
+        <!-- JavaScript for Preview -->
+        <script>
+            document.getElementById('imagefile').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('image-preview').src = e.target.result;
+                        document.querySelector('.preview').style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        </script>
+
+        <!-- Footer -->
+        <div class="footer">
+            Developed by
+            <a href="https://github.com/FatihSir" target="_blank">MOHAMEDALFATEH T. M. SAEED</a>
+        </div>
+    </div>
+</body>
+</html>
