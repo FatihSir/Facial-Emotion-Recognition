@@ -1,5 +1,7 @@
 # Facial Emotion Recognition (FER) 🧠 
 
+![cover](Cover.png)
+
 Facial Expression Recognition (FER) is a vital field in computer vision and affective computing, enabling automated identification of human emotions from facial cues. Applications span human-computer interaction, psychology, and security.
 Early FER systems relied on handcrafted features (e.g., HOG) and classical classifiers like SVMs, which struggled with real-world variability. Recent advancements in deep learning—especially Convolutional Neural Networks (CNNs)—have significantly improved accuracy by learning rich, hierarchical features directly from data.
 Datasets like CK+ and JAFFE have supported this progress, though challenges remain, including lighting variations, occlusions, and cultural differences. Techniques like data augmentation, domain adaptation, and temporal modeling are actively used to enhance robustness.
